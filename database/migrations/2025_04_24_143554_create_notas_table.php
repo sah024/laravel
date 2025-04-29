@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('notas', function (Blueprint $table) {
             $table->id();
+            $table->mediumText('texto');
             $table->timestamps();
         });
     }
