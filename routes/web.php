@@ -25,4 +25,10 @@ Route::get('/calc/quadrado/{x}', [CalculosController::class, 'quadrado']);
 Route::prefix('/keep')->group(function () {
     Route::get('/', [KeepinhoController::class, 'index'])->name('keep');
     Route::post('/gravar', [KeepinhoController::class, 'gravar'])->name('keep.gravar');
+    // {} variável da rota
+    Route::get('/editar/{nota}', [KeepinhoController::class, 'editar'])->name('keep.editar'); //Formulário
+    // put pra editar efetivamente
+    Route::put('/editar', [KeepinhoController::class, 'editar'])->name('keep.editarGravar'); //Ação
+    // delete apaga
+    Route::delete('/apagar/{nota}', [KeepinhoController::class, 'apagar'])->name('keep.apagar'); 
 });
