@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NotaRequest;
 use App\Models\Nota;
 use Illuminate\Http\Request;
 
@@ -15,11 +16,13 @@ class KeepinhoController extends Controller
         ]);
         //ou compact($var);
     }
-    public function gravar(Request $request) {
-        $dados = $request->validate([
-            'titulo' => 'required',
-            'texto' => 'required',
-        ]);
+    public function gravar(NotaRequest $request) {
+        //php artisan lang:publish
+        // composer require lucascudo/laravel-pt-br-localization --dev
+        // php artisan vendor:publish --tag=laravel-pt-br-localization
+        
+        // a request já valida
+        $dados = $request->validated();
         // create necessita de atributos para passar 
         Nota::create($dados);
         // acima, cria uma nota com todos os valores enviado pelo formulário.
@@ -27,12 +30,14 @@ class KeepinhoController extends Controller
         return redirect()->route('keep');
     }
 
-    //tipagem, facilita pois já busca no Banco pra nós
-    public function editar (Nota $nota, Request $request) {
+    //tipagem, facilita pois já busca no Banco
+    public function editar (Nota $nota, NotaRequest $request) {
         if($request->isMethod('put')) {
             $nota = Nota::find($request->id);
-            $nota->texto = $request->texto;
-            $nota->titulo = $request->titulo;
+            
+            //poupa de escrever tantos dados
+            $nota->fill($request->all());
+
             $nota->save();
             return redirect()->route('keep');
         }

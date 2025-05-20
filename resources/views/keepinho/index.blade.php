@@ -2,17 +2,21 @@
 <p>Seja bem-vindo ao Keepinho, o seu assistente pessoal (melhor do que o Google)</p>
 <hr>
 @if ($errors->any())
-    <div>
+    <div style="color:red">
         <h3>Erro!</h3>
-    </div>
+            <ul>
+                @foreach ($errors->all() as $e)
+                    <li>{{ $e }}</li>                   
+                @endforeach
+            </ul>
+        </div>
 @endif
-@enderror
 <form action="{{ route('keep.gravar') }}" method="post">
     @csrf
     <br>
-    <input type="text" name="titulo">
+    <input type="text" name="titulo" placeholder="Título da nota" value="{{ old('titulo') }}">
     <br>
-    <textarea name="texto" cols="30" rows="10"></textarea>
+    <textarea name="texto" cols="30" rows="10" placeholder="Digite sua nota aqui...">{{ old('texto') }}</textarea>
     <br>
     <button type="submit">Gravar nota</button>
 </form>
