@@ -19,6 +19,7 @@ return new class extends Migration
             $table->id();
             $table->mediumText('texto');
             $table->timestamps();
+            $table->SoftDeletes();
         });
     }
 
