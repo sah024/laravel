@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalculosController;
 use App\Http\Controllers\KeepinhoController;
 use Illuminate\Support\Facades\Route;
@@ -34,3 +35,8 @@ Route::prefix('/keep')->group(function () {
     Route::get('/lixeira', [KeepinhoController::class, 'lixeira'])->name('keep.lixeira');
     Route::get('restaurar/{nota}', [KeepinhoController::class, 'restaurar'])->name('keep.restaurar');
 });
+
+Route::get('/auth', [AuthController::class, 'index'])->name('auth.index');
+Route::post('/auth/save', [AuthController::class, 'save'])->name('auth.save');
+Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/auth/login', [AuthController::class, 'index']);
