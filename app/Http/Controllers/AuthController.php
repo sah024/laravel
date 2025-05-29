@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
-use Illuminate\Facades\Auth as Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function index() {
-        return view('auth.index');
+        $usuarios = User::all();
+        return view('auth.index', compact('usuarios'));
     }
 
     public function save(AuthRequest $request) {
@@ -25,5 +26,10 @@ class AuthController extends Controller
             }
         }
         return view('auth.login');
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('auth.index');
     }
 }

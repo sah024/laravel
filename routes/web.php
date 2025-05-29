@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalculosController;
 use App\Http\Controllers\KeepinhoController;
@@ -9,34 +10,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/teste', function () {
-    return view('teste');
+Route::delete('/apagar/{nota}', [KeepinhoController::class, 'apagar'])->name('keep.apagar');
+Route::get('/lixeira', [KeepinhoController::class, 'lixeira'])->name('keep.lixeira');
+Route::get('restaurar/{nota}', [KeepinhoController::class, 'restaurar'])->name('keep.restaurar');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//em ordem, valor = $valor; 
+// Route::get('/auth', [AuthController::class, 'index'])->name('auth.index');
+// Route::post('/auth/save', [AuthController::class, 'save'])->name('auth.save');
+// Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
+// Route::post('/auth/login', [AuthController::class, 'login']);
+// Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-//Cálculos
-Route::get('/calc/somar/{x}/{y}', [CalculosController::class, 'somar']);
-Route::get('/calc/subtrair/{x}/{y}', [CalculosController::class, 'subtrair']);
-Route::get('/calc/multiplicar/{x}/{y}', [CalculosController::class, 'multiplicar']);
-Route::get('/calc/dividir/{x}/{y}', [CalculosController::class, 'dividir']);
-Route::get('/calc/quadrado/{x}', [CalculosController::class, 'quadrado']);
-
-//Keepinho
-Route::prefix('/keep')->group(function () {
-    Route::get('/', [KeepinhoController::class, 'index'])->name('keep');
-    Route::post('/gravar', [KeepinhoController::class, 'gravar'])->name('keep.gravar');
-    // {} variável da rota
-    Route::get('/editar/{nota}', [KeepinhoController::class, 'editar'])->name('keep.editar'); //Formulário
-    // put pra editar efetivamente
-    Route::put('/editar', [KeepinhoController::class, 'editar'])->name('keep.editarGravar'); //Ação
-    // delete apaga
-    Route::delete('/apagar/{nota}', [KeepinhoController::class, 'apagar'])->name('keep.apagar');
-    Route::get('/lixeira', [KeepinhoController::class, 'lixeira'])->name('keep.lixeira');
-    Route::get('restaurar/{nota}', [KeepinhoController::class, 'restaurar'])->name('keep.restaurar');
-});
-
-Route::get('/auth', [AuthController::class, 'index'])->name('auth.index');
-Route::post('/auth/save', [AuthController::class, 'save'])->name('auth.save');
-Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
-Route::post('/auth/login', [AuthController::class, 'index']);
+require __DIR__.'/auth.php';
