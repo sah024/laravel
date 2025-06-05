@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalculosController;
@@ -23,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::resource('produtos', ProdutosController::class);
 
 // Route::get('/auth', [AuthController::class, 'index'])->name('auth.index');
 // Route::post('/auth/save', [AuthController::class, 'save'])->name('auth.save');
