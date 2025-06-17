@@ -16,4 +16,17 @@
             </div>
         </div>
     </div>
+
+    <div>
+        @foreach ($produtos as $produto)
+            <div class="dark:border-indigo-500 p-6 border-solid border-2 rounded-md ">
+                <p class="text-white text-5xl">{{ $produto->nome }}</p>
+                <p class="dark:text-indigo-300 text-2xl">R$ {{ $produto->preco }}</p>
+                <p class="dark:text-gray-200">Descrição: {{ $produto->descricao }}</p>
+                @if ($produto->imagem !== null)
+                    <img src="{{ asset("storage/$produto->imagem") }}" alt="imagem {{ $produto->nome }}">
+                @endif
+            </div>
+        @endforeach
+    </div>
 </x-app-layout>
