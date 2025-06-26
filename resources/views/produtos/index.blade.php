@@ -26,6 +26,11 @@
                 @if ($produto->imagem !== null)
                     <img src="{{ asset("storage/$produto->imagem") }}" alt="imagem {{ $produto->nome }}">
                 @endif
+                <form action="{{ route('carrinho.adicionar') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $produto->id }}">
+                    <button type="submit">Adicionar ao carrinho</button>
+                </form>
             </div>
         @endforeach
     </div>

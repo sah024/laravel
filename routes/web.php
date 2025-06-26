@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
@@ -32,5 +33,9 @@ Route::resource('produtos', ProdutosController::class);
 // Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
 // Route::post('/auth/login', [AuthController::class, 'login']);
 // Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+Route::get('/carrinho', [CarrinhoController::class, 'index'])->name('carrinho.index');
+Route::post('/carrinho/adicionar', [CarrinhoController::class, 'adicionar'])->name('carrinho.adicionar');
+Route::delete('/carrinho/remover', [CarrinhoController::class, 'remover'])->name('carrinho.remover');
 
 require __DIR__.'/auth.php';
