@@ -44,6 +44,7 @@ class ProdutosController extends Controller
             'preco' => $dados['preco'],
             'descricao' => $dados['descricao'],
             'imagem' => $caminhoImagem,
+            'categoria_id' => $dados['categoria_id']
         ]);
 
         return redirect()->route('produtos.index');

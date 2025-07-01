@@ -23,6 +23,10 @@
                     <x-nav-link :href="route('carrinho.index')" :active="request()->routeIs('carrinho.index')">
                         Carrinho
                     </x-nav-link>
+
+                    <x-nav-link :href="route('categorias.index')" :active="request()->routeIs('categorias.index')">
+                        Categorias
+                    </x-nav-link>
                 </div>
             </div>
 
