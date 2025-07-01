@@ -36,6 +36,6 @@ Route::resource('produtos', ProdutosController::class);
 
 Route::get('/carrinho', [CarrinhoController::class, 'index'])->name('carrinho.index');
 Route::post('/carrinho/adicionar', [CarrinhoController::class, 'adicionar'])->name('carrinho.adicionar');
-Route::delete('/carrinho/remover', [CarrinhoController::class, 'remover'])->name('carrinho.remover');
+Route::delete('/carrinho/remover/{id}', [CarrinhoController::class, 'remover'])->name('carrinho.remover');
 
 require __DIR__.'/auth.php';
