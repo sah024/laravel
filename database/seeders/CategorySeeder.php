@@ -18,5 +18,11 @@ class CategorySeeder extends Seeder
         Category::create(['name' => 'Economia']);
 
         Category::create(['name' => 'Lazer']);
+
+        Category::create(['name' => 'Comida']);
+
+        Category::create(['name' => 'Esportes']);
+
+        Category::create(['name' => 'Música']);
     }
 }
